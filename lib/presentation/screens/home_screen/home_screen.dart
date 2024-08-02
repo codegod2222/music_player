@@ -39,10 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   /// A flag indicating whether music is currently playing.
   bool isPlaying = false;
 
-  bool showLeftSlider = false;
-
-  bool showRightSlider = false;
-
   /// The duration of the current music track.
   Duration duration = Duration.zero;
 
@@ -375,8 +371,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           /// Rewind button.
           SizedBox(
-            width: 90,
-            height: 60,
+            width: 80,
+            height: 50,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shadowColor: ColorName.lightPink.withOpacity(0.2),
@@ -411,8 +407,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
           /// Play/pause button.
           SizedBox(
-            width: 90,
-            height: 60,
+            width: 80,
+            height: 50,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   side: BorderSide(
@@ -437,8 +433,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
           /// Fast-forward button.
           SizedBox(
-            width: 90,
-            height: 60,
+            width: 80,
+            height: 50,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shadowColor: ColorName.lightPink.withOpacity(0.2),
@@ -793,7 +789,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           /// Mute button.
           IconButton(
-            onPressed: () async {
+            onPressed: () {
               /// Decrease the volume by 10 if possible, otherwise set it to 0.W
               if ((soundLevel - 10) >= 0) {
                 setState(() {
@@ -807,13 +803,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Update the volume of the music player.
               assetsAudioPlayer.setVolume((soundLevel / 100));
-              setState(() {
-                showLeftSlider = true;
-              });
-              await Future.delayed(const Duration(seconds: 2));
-              setState(() {
-                showLeftSlider = false;
-              });
             },
             icon: const Icon(
               Icons.volume_mute,
@@ -841,7 +830,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           /// Unmute button.
           IconButton(
-            onPressed: () async {
+            onPressed: () {
               /// Increase the volume by 10 if possible, otherwise set it to 100.
               if ((soundLevel + 10) <= 100) {
                 setState(() {
@@ -855,13 +844,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Update the volume of the music player.
               assetsAudioPlayer.setVolume((soundLevel / 100));
-              setState(() {
-                showRightSlider = true;
-              });
-              await Future.delayed(const Duration(seconds: 2));
-              setState(() {
-                showRightSlider = false;
-              });
             },
             icon: const Icon(
               Icons.volume_up,

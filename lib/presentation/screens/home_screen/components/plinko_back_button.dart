@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:music_player/gen/colors.gen.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+/// A custom back button widget that resembles the classic Plinko game.
+///
+/// This widget uses a stack of positioned dots to create the visual effect of
+/// Plinko pegs. The text "Back to Plinko" is centered on the button and is
+/// tappable.
 class PlinkoBackButton extends StatelessWidget {
+  /// Creates a new instance of the `PlinkoBackButton` widget.
   const PlinkoBackButton({super.key});
 
   @override
@@ -11,6 +17,7 @@ class PlinkoBackButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Stack(
         children: [
+          /// The base button, which is a rounded rectangle with the primary color.
           SizedBox(
             width: 100.sh,
             height: 70,
@@ -25,6 +32,9 @@ class PlinkoBackButton extends StatelessWidget {
               child: const SizedBox.shrink(),
             ),
           ),
+
+          /// The Plinko dots, which are positioned to create the visual effect
+          /// of pegs.
           _buildDot(
             color: ColorName.lightPink.withOpacity(0.2),
             left: 2.sh,
@@ -158,6 +168,8 @@ class PlinkoBackButton extends StatelessWidget {
             bottom: 0,
             top: 0,
           ),
+
+          /// The text label "Back to Plinko", which is centered on the button.
           Positioned(
             top: 0,
             bottom: 0,
@@ -165,7 +177,7 @@ class PlinkoBackButton extends StatelessWidget {
             right: 0,
             child: InkWell(
               onTap: () {
-                //
+                // Navigate back to the previous screen.
               },
               child: Align(
                 child: Text(
@@ -180,6 +192,10 @@ class PlinkoBackButton extends StatelessWidget {
     );
   }
 
+  /// A helper function to build a single Plinko dot.
+  ///
+  /// This function takes the color of the dot and optional positioning
+  /// parameters as input.
   _buildDot({
     required Color color,
     double? top,
@@ -194,7 +210,7 @@ class PlinkoBackButton extends StatelessWidget {
       bottom: bottom,
       child: InkWell(
         onTap: () {
-          //
+          // Handle tap event for the dot.
         },
         child: Align(
           child: Container(
