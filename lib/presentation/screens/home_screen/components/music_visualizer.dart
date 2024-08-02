@@ -98,7 +98,7 @@ class VisualizerPainter extends CustomPainter {
   final double smoothingFactor;
 
   /// A list of previous heights for each bar, used for smoothing the animation.
-  List<double> _previousHeights;
+  final List<double> _previousHeights;
 
   /// Creates a new instance of the `VisualizerPainter` class.
   VisualizerPainter({
