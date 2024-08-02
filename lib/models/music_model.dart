@@ -1,13 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:music_player/gen/assets.gen.dart';
-
+/// Represents a music track with its details.
 class Music {
+  /// The unique identifier for the music track.
   final int id;
+
+  /// The title of the music track.
   final String title;
+
+  /// The artist of the music track.
   final String artist;
+
+  /// The path to the music file.
   final String path;
+
+  /// Creates a new instance of the `Music` class.
   Music({
     required this.id,
     required this.title,
@@ -15,6 +23,7 @@ class Music {
     required this.path,
   });
 
+  /// Creates a copy of the `Music` object with optional modifications.
   Music copyWith({
     int? id,
     String? title,
@@ -29,6 +38,7 @@ class Music {
     );
   }
 
+  /// Converts the `Music` object to a map.
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -38,6 +48,7 @@ class Music {
     };
   }
 
+  /// Creates a `Music` object from a map.
   factory Music.fromMap(Map<String, dynamic> map) {
     return Music(
       id: map['id'] as int,
@@ -47,16 +58,20 @@ class Music {
     );
   }
 
+  /// Converts the `Music` object to a JSON string.
   String toJson() => json.encode(toMap());
 
+  /// Creates a `Music` object from a JSON string.
   factory Music.fromJson(String source) =>
       Music.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  /// Returns a string representation of the `Music` object.
   @override
   String toString() {
     return 'Music(id: $id, title: $title, artist: $artist, path: $path)';
   }
 
+  /// Checks if two `Music` objects are equal.
   @override
   bool operator ==(covariant Music other) {
     if (identical(this, other)) return true;
@@ -67,16 +82,22 @@ class Music {
         other.path == path;
   }
 
+  /// Returns the hash code for the `Music` object.
   @override
   int get hashCode {
     return id.hashCode ^ title.hashCode ^ artist.hashCode ^ path.hashCode;
   }
 }
 
+/// Generates a URL for accessing a music file on Google Drive.
+///
+/// This function takes a file ID as input and returns a URL that can be used
+/// to access the corresponding music file.
 String getUrlAddress(String fileID) {
   return 'https://www.googleapis.com/drive/v3/files/$fileID?alt=media&key=AIzaSyCAtbRmPnOklzrDRYZe4LBemLzNTjx80pI&v=.mp3';
 }
 
+/// A list of `Music` objects representing the available music tracks.
 final musicList = <Music>[
   Music(
     id: 0,

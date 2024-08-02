@@ -3,18 +3,36 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:music_player/gen/colors.gen.dart';
 
+/// A widget that displays a visual representation of music playback.
+///
+/// The visualizer consists of a series of bars that animate based on the
+/// current playback state.
 class MusicVisualizer extends StatefulWidget {
+  /// Whether the music is currently playing.
   final bool isPlaying;
+
+  /// Creates a new instance of the `MusicVisualizer` widget.
   const MusicVisualizer({super.key, required this.isPlaying});
 
   @override
   State<MusicVisualizer> createState() => _MusicVisualizerState();
 }
 
+/// The state for the `MusicVisualizer` widget.
+///
+/// This state manages the animation of the visualizer bars.
 class _MusicVisualizerState extends State<MusicVisualizer> {
+  /// A random number generator used for generating random waveform values.
   final Random _random = Random();
+
+  /// The current waveform data, represented as a list of integers.
   List<int> _waveform = List.generate(32, (index) => 0);
 
+  /// Updates the visualizer with new random waveform data.
+  ///
+  /// This method generates a new list of random integers and updates the
+  /// `_waveform` state variable. It then delays the next update by 100
+  /// milliseconds.
   void _updateVisualizer() {
     Future.doWhile(() async {
       setState(() {
@@ -27,6 +45,7 @@ class _MusicVisualizerState extends State<MusicVisualizer> {
 
   @override
   void initState() {
+    // Start updating the visualizer when the widget is initialized.
     _updateVisualizer();
     super.initState();
   }
@@ -35,12 +54,16 @@ class _MusicVisualizerState extends State<MusicVisualizer> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Use a CustomPaint widget to draw the visualizer bars.
         CustomPaint(
           painter: VisualizerPainter(
+            // Pass the current waveform data, playback state, and other
+            // customization options to the painter.
             waveform: _waveform,
             isPlaying: widget.isPlaying,
             backgroundColor: ColorName.foregroundColor,
           ),
+          // Set the size of the visualizer.
           child: const SizedBox(
             width: double.infinity,
             height: 250,
@@ -51,16 +74,33 @@ class _MusicVisualizerState extends State<MusicVisualizer> {
   }
 }
 
+/// A custom painter that draws the visualizer bars.
+///
+/// This painter takes the waveform data, playback state, and other
+/// customization options as input and draws the visualizer bars on the canvas.
 class VisualizerPainter extends CustomPainter {
+  /// The current waveform data, represented as a list of integers.
   final List<int> waveform;
-  final double barGap;
-  final double borderRadius;
-  final Color backgroundColor;
-  final double smoothingFactor;
+
+  /// Whether the music is currently playing.
   final bool isPlaying;
 
+  /// The gap between the visualizer bars.
+  final double barGap;
+
+  /// The radius of the rounded corners of the visualizer bars.
+  final double borderRadius;
+
+  /// The background color of the visualizer.
+  final Color backgroundColor;
+
+  /// The smoothing factor for the animation of the visualizer bars.
+  final double smoothingFactor;
+
+  /// A list of previous heights for each bar, used for smoothing the animation.
   List<double> _previousHeights;
 
+  /// Creates a new instance of the `VisualizerPainter` class.
   VisualizerPainter({
     required this.waveform,
     required this.isPlaying,
@@ -72,33 +112,41 @@ class VisualizerPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // Only draw the visualizer if the music is playing.
     if (isPlaying) {
-// Draw background
+      // Draw the background of the visualizer.
       canvas.drawRect(
         Rect.fromLTWH(0, 0, size.width, size.height),
         Paint()..color = backgroundColor,
       );
 
+      // Calculate the width of each bar.
       final barWidth =
           (size.width - (waveform.length - 1) * barGap) / waveform.length;
 
+      // Iterate over each bar in the waveform.
       for (int i = 0; i < waveform.length; i++) {
-        // Interpolate between the previous height and the current height
+        // Calculate the target height of the bar based on the waveform data.
         final targetHeight = waveform[i] / 156.0 * size.height;
+
+        // Smoothly interpolate between the previous height and the target height.
         _previousHeights[i] = _previousHeights[i] * (1 - smoothingFactor) +
             targetHeight * smoothingFactor;
 
+        // Get the actual height of the bar after smoothing.
         final barHeight = _previousHeights[i];
+
+        // Calculate the x-coordinate of the bar.
         final barX = i * (barWidth + barGap);
 
-        // Set the color for each bar
+        // Set the color of the bar based on its position in the waveform.
         final paint = Paint()
           ..color = i < waveform.length / 2
               ? ColorName.lightPink
               : ColorName.primaryColor.withOpacity(0.5)
           ..style = PaintingStyle.fill;
 
-        // Draw each bar with rounded corners
+        // Draw the bar with rounded corners.
         final barRect = RRect.fromRectAndRadius(
           Rect.fromLTWH(barX, size.height - barHeight, barWidth, barHeight),
           Radius.circular(borderRadius),
@@ -110,6 +158,8 @@ class VisualizerPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // Always repaint the visualizer when the waveform data or playback state
+    // changes.
     return true;
   }
 }

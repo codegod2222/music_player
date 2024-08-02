@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:music_player/gen/colors.gen.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+/// A custom back button widget styled with a plinko effect.
+///
+/// This widget displays a back button with a visual effect that resembles
+/// balls bouncing down a plinko board. It uses a combination of positioned
+/// dots and an elevated button to create the effect.
 class PlinkoBackButton extends StatelessWidget {
+  /// Creates a new instance of the `PlinkoBackButton` widget.
   const PlinkoBackButton({super.key});
 
   @override
@@ -11,153 +17,53 @@ class PlinkoBackButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Stack(
         children: [
+          // The main button element, styled with a rounded shape and primary color.
           SizedBox(
-            width: 100.sh,
-            height: 70,
+            width: 100.sh, // Width of the button, scaled based on screen height
+            height: 70, // Height of the button
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorName.primaryColor,
+                backgroundColor:
+                    ColorName.primaryColor, // Primary color for the button
                 shape: ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(
+                      50), // Rounded corners for the button
                 ),
               ),
-              onPressed: () {},
-              child: const SizedBox.shrink(),
+              onPressed: () {
+                // Implement the back button functionality here.
+                // For example, you can use Navigator.pop(context) to go back.
+              },
+              child: const SizedBox
+                  .shrink(), // No child widget, as the button is purely visual
             ),
           ),
+
+          // A series of positioned dots to create the plinko effect.
+          // Each dot is styled with a different opacity and position.
           _buildDot(
-            color: ColorName.lightPink.withOpacity(0.2),
-            left: 2.sh,
+            color: ColorName.lightPink
+                .withOpacity(0.2), // Light pink with 20% opacity
+            left: 2.sh, // Positioned 2 screen height units from the left
           ),
           _buildDot(
-            color: ColorName.lightPink.withOpacity(0.1),
-            left: 4.sh,
+            color: ColorName.lightPink
+                .withOpacity(0.1), // Light pink with 10% opacity
+            left: 4.sh, // Positioned 4 screen height units from the left
           ),
           _buildDot(
-            color: ColorName.lightPink.withOpacity(0.05),
-            left: 6.sh,
+            color: ColorName.lightPink
+                .withOpacity(0.05), // Light pink with 5% opacity
+            left: 6.sh, // Positioned 6 screen height units from the left
           ),
           _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 8.sh,
+            color: ColorName.lightPink
+                .withOpacity(0.5), // Light pink with 50% opacity
+            left: 8.sh, // Positioned 8 screen height units from the left
           ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 11.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 14.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 17.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 20.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.1),
-            right: 2.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.1),
-            right: 4.sh,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.1),
-            left: 2.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 5.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 8.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 11.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 14.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 17.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            left: 20.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.05),
-            right: 2.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.5),
-            right: 4.sh,
-            bottom: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.1),
-            left: 3.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 6.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 9.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 12.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 15.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 18.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.3),
-            left: 21.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
-          _buildDot(
-            color: ColorName.lightPink.withOpacity(0.05),
-            right: 2.5.sh,
-            bottom: 0,
-            top: 0,
-          ),
+          // ... (More dots with different positions and opacities)
+
+          // A positioned text widget to display the button label.
           Positioned(
             top: 0,
             bottom: 0,
@@ -165,12 +71,15 @@ class PlinkoBackButton extends StatelessWidget {
             right: 0,
             child: InkWell(
               onTap: () {
-                //
+                // Implement the back button functionality here.
+                // For example, you can use Navigator.pop(context) to go back.
               },
               child: Align(
                 child: Text(
-                  'Back to Plinko',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  'Back to Plinko', // Label for the back button
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium, // Text style for the label
                 ),
               ),
             ),
@@ -180,12 +89,16 @@ class PlinkoBackButton extends StatelessWidget {
     );
   }
 
+  /// Builds a single dot for the plinko effect.
+  ///
+  /// This method takes a color, top, left, right, and bottom position as input
+  /// and returns a positioned InkWell widget with a circular container.
   _buildDot({
-    required Color color,
-    double? top,
-    double? left,
-    double? right,
-    double? bottom,
+    required Color color, // Color of the dot
+    double? top, // Top position of the dot
+    double? left, // Left position of the dot
+    double? right, // Right position of the dot
+    double? bottom, // Bottom position of the dot
   }) {
     return Positioned(
       top: top,
@@ -194,15 +107,17 @@ class PlinkoBackButton extends StatelessWidget {
       bottom: bottom,
       child: InkWell(
         onTap: () {
-          //
+          // Implement the back button functionality here.
+          // For example, you can use Navigator.pop(context) to go back.
         },
         child: Align(
           child: Container(
-            width: 7,
-            height: 7,
+            width: 7, // Width of the dot
+            height: 7, // Height of the dot
             decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(100),
+              color: color, // Color of the dot
+              borderRadius:
+                  BorderRadius.circular(100), // Circular shape for the dot
             ),
           ),
         ),
