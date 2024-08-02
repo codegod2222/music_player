@@ -31,7 +31,7 @@ ThemeData themeData() {
       inactiveTrackColor: ColorName.foregroundColor,
 
       /// Sets the color of the disabled active track.
-      disabledActiveTrackColor: Colors.amber,
+      disabledActiveTrackColor: ColorName.primaryColor,
     ),
 
     /// Customizes the text theme.

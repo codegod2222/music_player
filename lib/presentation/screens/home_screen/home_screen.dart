@@ -39,6 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
   /// A flag indicating whether music is currently playing.
   bool isPlaying = false;
 
+  bool showLeftSlider = false;
+
+  bool showRightSlider = false;
+
   /// The duration of the current music track.
   Duration duration = Duration.zero;
 
@@ -131,34 +135,137 @@ class _HomeScreenState extends State<HomeScreen> {
   /// the header, back button, music title, visualizer, audio controls, and
   /// sound controls.
   _buildMainUI() {
-    return Container(
-      /// Set the width and height of the container.
-      width: 30.sh,
-      height: 100.sw,
+    return ScreenTypeLayout.builder(
+        breakpoints:
+            const ScreenBreakpoints(desktop: 1600, tablet: 1200, watch: 500),
+        watch: (_) => Container(
+              alignment: Alignment.center,
 
-      /// Add margins and padding for spacing.
-      margin: const EdgeInsets.symmetric(vertical: 20),
-      padding: const EdgeInsets.all(30),
+              /// Set the width and height of the container.
+              width: 100.sw,
 
-      /// Apply a background color and rounded corners.
-      decoration: BoxDecoration(
-        color: ColorName.backgroundColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
+              height: 100.sh,
 
-      /// Arrange the UI elements in a column.
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          const PlinkoBackButton(),
-          _buildMusicTitle(),
-          _buildSoundSynchronization(),
-          _buildAudioControllers(),
-          _buildSoundControllers(),
-        ],
-      ),
-    );
+              padding: const EdgeInsets.all(30),
+
+              /// Apply a background color and rounded corners.
+              decoration: const BoxDecoration(
+                color: ColorName.backgroundColor,
+              ),
+
+              /// Arrange the UI elements in a column.
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    const PlinkoBackButton(),
+                    _buildMusicTitle(),
+                    _buildSoundSynchronization(),
+                    _buildAudioControllers(),
+                    _buildSoundControllers(),
+                  ],
+                ),
+              ),
+            ),
+        mobile: (_) => Container(
+              alignment: Alignment.center,
+
+              /// Set the width and height of the container.
+              width: 100.sw,
+
+              height: 100.sh,
+
+              /// Add margins and padding for spacing.
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.all(30),
+
+              /// Apply a background color and rounded corners.
+              decoration: BoxDecoration(
+                color: ColorName.backgroundColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              /// Arrange the UI elements in a column.
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    const PlinkoBackButton(),
+                    _buildMusicTitle(),
+                    _buildSoundSynchronization(),
+                    _buildAudioControllers(),
+                    _buildSoundControllers(),
+                  ],
+                ),
+              ),
+            ),
+        tablet: (_) => Container(
+              alignment: Alignment.center,
+
+              /// Set the width and height of the container.
+              width: 70.sw,
+
+              height: 100.sh,
+              padding: const EdgeInsets.all(30),
+
+              /// Add margins and padding for spacing.
+
+              /// Apply a background color and rounded corners.
+              decoration: BoxDecoration(
+                color: ColorName.backgroundColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              /// Arrange the UI elements in a column.
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    const PlinkoBackButton(),
+                    _buildMusicTitle(),
+                    _buildSoundSynchronization(),
+                    _buildAudioControllers(),
+                    _buildSoundControllers(),
+                  ],
+                ),
+              ),
+            ),
+        desktop: (_) => Container(
+              alignment: Alignment.center,
+
+              /// Set the width and height of the container.
+              width: 30.sh,
+
+              height: 100.sw,
+
+              /// Add margins and padding for spacing.
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.all(30),
+
+              /// Apply a background color and rounded corners.
+              decoration: BoxDecoration(
+                color: ColorName.backgroundColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              /// Arrange the UI elements in a column.
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    const PlinkoBackButton(),
+                    _buildMusicTitle(),
+                    _buildSoundSynchronization(),
+                    _buildAudioControllers(),
+                    _buildSoundControllers(),
+                  ],
+                ),
+              ),
+            ));
   }
 
   /// Builds the header of the home screen.
@@ -260,89 +367,417 @@ class _HomeScreenState extends State<HomeScreen> {
   /// This method creates a row with buttons for rewinding, playing/pausing,
   /// and fast-forwarding the music track.
   _buildAudioControllers() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        /// Rewind button.
-        SizedBox(
-          width: 8.sh,
-          height: 80,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorName.foregroundColor,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(100),
-                    bottomLeft: Radius.circular(100),
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
+    return ScreenTypeLayout.builder(
+      breakpoints:
+          const ScreenBreakpoints(desktop: 1600, tablet: 1200, watch: 500),
+      watch: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// Rewind button.
+          SizedBox(
+            width: 90,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
                   ),
                 ),
-              ),
-              onPressed: () {
-                /// Seek to 10 seconds before the current position.
-                final to = position.inSeconds - 10;
-                assetsAudioPlayer.seek(Duration(
-                  seconds: to,
-                ));
-              },
-              child: const Icon(
-                Icons.fast_rewind,
-                size: 50,
-                color: ColorName.white,
-              )),
-        ),
+                onPressed: () {
+                  /// Seek to 10 seconds before the current position.
+                  final to = position.inSeconds - 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_rewind,
+                  size: 20,
+                  color: ColorName.white,
+                )),
+          ),
 
-        /// Play/pause button.
-        SizedBox(
-          width: 8.sh,
-          height: 80,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFF82CF),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onPressed: playButtonHandler,
-              child: Icon(
-                /// Display the pause icon if music is playing, otherwise display the play icon.
-                isPlaying ? Icons.pause : Icons.play_arrow,
-                size: 50,
-                color: const Color(0xFF5C0039),
-              )),
-        ),
-
-        /// Fast-forward button.
-        SizedBox(
-          width: 8.sh,
-          height: 80,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorName.foregroundColor,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(100),
-                    bottomRight: Radius.circular(100),
-                    topLeft: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
+          /// Play/pause button.
+          SizedBox(
+            width: 90,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                    color: ColorName.white.withOpacity(0.2),
+                    width: 2,
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 250, 114, 198),
+                  shadowColor: ColorName.white.withOpacity(0.1),
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ),
-              onPressed: () async {
-                /// Seek to 10 seconds after the current position.
-                final to = position.inSeconds + 10;
-                assetsAudioPlayer.seek(Duration(
-                  seconds: to,
-                ));
-              },
-              child: const Icon(
-                Icons.fast_forward,
-                size: 50,
-                color: ColorName.white,
-              )),
-        )
-      ],
+                onPressed: playButtonHandler,
+                child: Icon(
+                  /// Display the pause icon if music is playing, otherwise display the play icon.
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 20,
+                  color: const Color(0xFF5C0039),
+                )),
+          ),
+
+          /// Fast-forward button.
+          SizedBox(
+            width: 90,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  /// Seek to 10 seconds after the current position.
+                  final to = position.inSeconds + 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_forward,
+                  size: 20,
+                  color: ColorName.white,
+                )),
+          )
+        ],
+      ),
+      mobile: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// Rewind button.
+          SizedBox(
+            width: 90,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  /// Seek to 10 seconds before the current position.
+                  final to = position.inSeconds - 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_rewind,
+                  size: 30,
+                  color: ColorName.white,
+                )),
+          ),
+
+          /// Play/pause button.
+          SizedBox(
+            width: 100,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                    color: ColorName.white.withOpacity(0.2),
+                    width: 2,
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 250, 114, 198),
+                  shadowColor: ColorName.white.withOpacity(0.1),
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: playButtonHandler,
+                child: Icon(
+                  /// Display the pause icon if music is playing, otherwise display the play icon.
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 30,
+                  color: const Color(0xFF5C0039),
+                )),
+          ),
+
+          /// Fast-forward button.
+          SizedBox(
+            width: 100,
+            height: 60,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  /// Seek to 10 seconds after the current position.
+                  final to = position.inSeconds + 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_forward,
+                  size: 30,
+                  color: ColorName.white,
+                )),
+          )
+        ],
+      ),
+      tablet: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// Rewind button.
+          SizedBox(
+            width: 120,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  /// Seek to 10 seconds before the current position.
+                  final to = position.inSeconds - 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_rewind,
+                  size: 50,
+                  color: ColorName.white,
+                )),
+          ),
+
+          /// Play/pause button.
+          SizedBox(
+            width: 120,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                    color: ColorName.white.withOpacity(0.2),
+                    width: 2,
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 250, 114, 198),
+                  shadowColor: ColorName.white.withOpacity(0.1),
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: playButtonHandler,
+                child: Icon(
+                  /// Display the pause icon if music is playing, otherwise display the play icon.
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 50,
+                  color: const Color(0xFF5C0039),
+                )),
+          ),
+
+          /// Fast-forward button.
+          SizedBox(
+            width: 120,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  /// Seek to 10 seconds after the current position.
+                  final to = position.inSeconds + 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_forward,
+                  size: 50,
+                  color: ColorName.white,
+                )),
+          )
+        ],
+      ),
+      desktop: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// Rewind button.
+          SizedBox(
+            width: 8.sh,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  /// Seek to 10 seconds before the current position.
+                  final to = position.inSeconds - 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_rewind,
+                  size: 50,
+                  color: ColorName.white,
+                )),
+          ),
+
+          /// Play/pause button.
+          SizedBox(
+            width: 8.sh,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                    color: ColorName.white.withOpacity(0.2),
+                    width: 2,
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 250, 114, 198),
+                  shadowColor: ColorName.white.withOpacity(0.1),
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: playButtonHandler,
+                child: Icon(
+                  /// Display the pause icon if music is playing, otherwise display the play icon.
+                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 50,
+                  color: const Color(0xFF5C0039),
+                )),
+          ),
+
+          /// Fast-forward button.
+          SizedBox(
+            width: 8.sh,
+            height: 70,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorName.lightPink.withOpacity(0.2),
+                  backgroundColor: ColorName.foregroundColor,
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: ColorName.lightPink.withOpacity(0.05),
+                      width: 2,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  /// Seek to 10 seconds after the current position.
+                  final to = position.inSeconds + 10;
+                  assetsAudioPlayer.seek(Duration(
+                    seconds: to,
+                  ));
+                },
+                child: const Icon(
+                  Icons.fast_forward,
+                  size: 50,
+                  color: ColorName.white,
+                )),
+          )
+        ],
+      ),
     );
   }
 
@@ -358,8 +793,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           /// Mute button.
           IconButton(
-            onPressed: () {
-              /// Decrease the volume by 10 if possible, otherwise set it to 0.
+            onPressed: () async {
+              /// Decrease the volume by 10 if possible, otherwise set it to 0.W
               if ((soundLevel - 10) >= 0) {
                 setState(() {
                   soundLevel -= 10;
@@ -372,6 +807,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Update the volume of the music player.
               assetsAudioPlayer.setVolume((soundLevel / 100));
+              setState(() {
+                showLeftSlider = true;
+              });
+              await Future.delayed(const Duration(seconds: 2));
+              setState(() {
+                showLeftSlider = false;
+              });
             },
             icon: const Icon(
               Icons.volume_mute,
@@ -399,7 +841,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           /// Unmute button.
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               /// Increase the volume by 10 if possible, otherwise set it to 100.
               if ((soundLevel + 10) <= 100) {
                 setState(() {
@@ -413,6 +855,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// Update the volume of the music player.
               assetsAudioPlayer.setVolume((soundLevel / 100));
+              setState(() {
+                showRightSlider = true;
+              });
+              await Future.delayed(const Duration(seconds: 2));
+              setState(() {
+                showRightSlider = false;
+              });
             },
             icon: const Icon(
               Icons.volume_up,
